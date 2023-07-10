@@ -26,24 +26,24 @@
                             <div class="card card-register">
                                 <h3 class="title">Add New Adventure</h3>
                                 
-                                <form class="register-form" method="post" action="{{ route('savejournals') }}" enctype="multipart/form-data">
+                                <form class="register-form" method="post" action="{{ route('storejournals') }}" enctype="multipart/form-data">
                                     @csrf
                                     <label>Post a Picture</label>
-                                    <input class="form-control" type="file" name="image" id="formFile">
+                                    <input class="form-control" type="file" name="image" id="image">
 
                                     <label>Place Name</label>
-                                    <input type="text" class="form-control" name="place" value="{{ old('place') }}" placeholder="Neuschwanstein">
+                                    <input type="text" class="form-control" name="place"  placeholder="Neuschwanstein">
 
                                     <label>Country</label>
-                                    <input type="text" class="form-control" name="country" value="{{ old('country') }}" placeholder="Jerman">
+                                    <input type="text" class="form-control" name="country"  placeholder="Jerman">
 
                                     <label>Date</label>
-                                    <input type="date" class="form-control"name="date" value="{{ old('date') }}">
+                                    <input type="date" class="form-control"name="date" >
 
                                     <label>Experiences</label>
-                                    <input type="Text" class="form-control" name="experience" value="{{ old('experience') }}" placeholder="The most beautiful castle">
+                                    <input type="Text" class="form-control" name="experience"  placeholder="The most beautiful castle">
 
-                                    <button class="btn btn-danger btn-block btn-round" type="submit" href="{{ route('savejournals') }}"><i class="fa fa-plus"></i>Add</button>
+                                    <button class="btn btn-danger btn-block btn-round" type="submit">Submit</button>
                                 </form>
                             </div>
                         </div>

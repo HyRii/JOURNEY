@@ -17,6 +17,27 @@
 </head>
 <body>
     @include('layouts.navbar');
+    @if ($errors->any()) 
+    @foreach ($errors->all() as $error)
+    <div class="alert alert-danger" role="alert">
+        {{ $error }}
+      </div>
+    @endforeach
+@endif
+
+
+@if (session()->has('success'))
+    <div class="alert alert-primary alert-dismissible fade show" role="alert">
+        {{ session('success') }}
+        <button type="button" class="btn-close" data-bs-dismis="alert"></button>
+    </div>
+@endif
+@if (session()->has('loginError'))
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        {{ session('loginError') }}
+        <button type="button" class="btn-close" data-bs-dismis="alert"></button>
+    </div>
+@endif
     <div class="wrapper">
         <div class="page-header" style="background-image: url('../assets/img/loginregis.jpg');">
             <div class="filter"></div>
@@ -31,8 +52,8 @@
                                     <input type="email" name="email" class="form-control" placeholder="Email" required="">
 
                                     <label>Password</label>
-                                    <input type="password" name="passwrd" class="form-control" placeholder="Password">
-                                    <a href="/create" class="btn btn-danger btn-block btn-round">Login</button></a>
+                                    <input type="password" name="password" id="password" class="form-control" placeholder="Password">
+                                    <button class="btn btn-danger btn-block btn-round" type="submit">Submit</button>
                                 </form>
                                 <div class="forgot">
                                     <a href="/register" class="btn btn-link btn-danger">Don't have account yet? <br> Free Register now!</a>

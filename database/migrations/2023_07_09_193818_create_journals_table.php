@@ -13,13 +13,13 @@ return new class extends Migration
     {
         Schema::create('journals', function (Blueprint $table) {
             $table->id();
-            // $table->bigInteger('id_user')->unsigned();
+            $table->bigInteger('id_user')->unsigned();
             $table->string('image')->nullable();
             $table->string('place');
             $table->string('country')->index();;
             $table->date('date');
             $table->string('experience');
-            // $table->foreign('id_user')->references('id')->on('journals');
+            $table->foreign('id_user')->references('id')->on('users');
         });
     }
 

@@ -27,7 +27,7 @@
                     </div>
                     <div class="name">
                         <h4 class="title">TRAVELER<br /></h4>
-						<a href="/create"><button type="button" class="btn btn-outline-default btn-round"><i class="fa fa-plus "></i> Journal</button></a>
+						<a href="{{ route('createjournals') }}"><button type="button" class="btn btn-outline-default btn-round"><i class="fa fa-plus "></i> Journal</button></a>
                     </div>
                 </div>
                 <br/>

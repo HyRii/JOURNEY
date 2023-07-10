@@ -1,9 +1,10 @@
 <?php
 namespace App\Http\Controllers;
 
+use App\Models\Journal;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Journal;
+use Illuminate\Support\Facades\Auth;
 // namespace App\Http\Controllers;
 
 // use App\Http\Controllers\Controller;
@@ -16,10 +17,12 @@ class JournalController extends Controller
      */
     public function showjournals()
     {
-        // $user = Auth::user();
+        $user = Auth::user();
         // $journals = Journal::get();
-        $journals = Journal::select('*')->get();
-        return view('journals.index')->with(['journals' => $journals]);
+        $journals = Journal::where('id_user', $user->id)->get();
+        return view('journals.index',[
+            'journals' => $journals,
+        ]);
         //  return view('journals.index', ['journals => $journals']);
         // return view('showjournals', ['journals' => $journals]);
     }
@@ -27,16 +30,15 @@ class JournalController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function createjournals()
+    public function create()
     {
-        return view('createjournals');
+        return view('journals.create');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function savejournals(Request $request)
-    {
+    function store(Request $request){
         $validated = $request->validate([
             'image' => 'required',
             'place' => 'required',
@@ -51,17 +53,48 @@ class JournalController extends Controller
             $imagePath = 'images/' . $imageName;
             $validated['image'] = $imagePath;
         }
-        
-        $journals = Journal::create([
-            'image' => $validated['image'],
-            'place' => $request->place,
-            'country' => $request->country,
-            'date' => $request->date,
-            'experience' => $request->experience,
-        ]);
+        $user = Auth::user();
+
+        $journals = new Journal();
+        $journals->id_user = $user->id;
+        $journals->image = $validated['image'];
+        $journals->place = $request->place;
+        $journals->country = $request->country;
+        $journals->date = $request->date;
+        $journals->experience = $request->experience;
+        $journals->save();
+
             return redirect()->route('showjournals');
-        
     }
+
+
+    // public function savejournals(Request $request)
+    // {
+    //     $validated = $request->validate([
+    //         'image' => 'required',
+    //         'place' => 'required',
+    //         'country' => 'required',
+    //         'date' => 'required',
+    //         'experience' => 'required',
+    //     ]);
+
+    //     if($request->hasFile('image')){
+    //         $imageName = time().'.'.$request->file('image')->getClientOriginalName();
+    //         $request->file('image')->move(public_path('images'), $imageName);
+    //         $imagePath = 'images/' . $imageName;
+    //         $validated['image'] = $imagePath;
+    //     }
+        
+    //     $journals = Journal::create([
+    //         'image' => $validated['image'],
+    //         'place' => $request->place,
+    //         'country' => $request->country,
+    //         'date' => $request->date,
+    //         'experience' => $request->experience,
+    //     ]);
+    //         return redirect()->route('showjournals');
+        
+    // }
 
     /**
      * Display the specified resource.
