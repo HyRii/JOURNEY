@@ -13,14 +13,13 @@ class LoginController extends Controller
 {
     public function login()
     {
-        if (Auth::check()) {
-            return redirect('home');
-        }else{
+        
+        
             return view('login');
-        }
+    
     }
 
-    public function actionlogin(Request $request)
+    public function actionlogin(Request $request) //ini Authentication
     {
         $credentials = $request->validate([
             'email' => 'required|email',

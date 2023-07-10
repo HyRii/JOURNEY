@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg fixed-top navbar-transparent" color-on-scroll="300">
+<nav class="navbar navbar-expand-lg fixed-top  navbar-dark" color-on-scroll="300">
     <div class="container">
         <div class="navbar-translate">
             <a class="navbar-brand" href="/">MY JOURNAL</a>
@@ -16,6 +16,11 @@
                 <li class="nav-item">
                     <a href="#why" class="nav-link"><i class="nc-icon nc-book-bookmark"></i>Journal Prompts</a>
                 </li>
+                @can('login')
+                <li class="nav-item">
+                    <a href="{{route('actionlogout')}}" class="nav-link"><i class="fa fa-power-off"></i> Log Out</a>
+                </li>
+                @endcan
             </ul>
         </div>
     </div>

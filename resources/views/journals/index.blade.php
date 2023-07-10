@@ -14,7 +14,13 @@
 
 </head>
 <body>
-    @include('layouts.navbar_user');
+    @include('layouts.navbar');
+    @if (session()->has('loginError'))
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        {{ session('loginError') }}
+        <button type="button" class="btn-close" data-bs-dismis="alert"></button>
+    </div>
+@endif
     <div class="wrapper">
         <div class="page-header page-header-xs" data-parallax="true" style="background-image: url('../assets/img/headerprofile.jpg');">
 			<div class="filter"></div>

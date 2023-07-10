@@ -35,21 +35,24 @@ Route::get('/edit', function () {
 
 use App\Http\Controllers\LoginController;
 
+Route::middleware('isLogin')->group(function () {
+//    
+    Route::get('/login', [LoginController::class, 'login'])->name('login');
+    Route::post('/actionlogin', [LoginController::class, 'actionlogin'])->name('actionlogin');
+});
+Route::middleware('notLogin')->group(function () {
 Route::get('journals/show', [JournalController::class, 'showjournals'])->name('showjournals');
 Route::get('journals/create', [JournalController::class, 'create'])->name('createjournals');
 Route::post('journals', [JournalController::class, 'store'])->name('storejournals');
 Route::post('journals/save', [JournalController::class, 'savejournals'])->name('savejournals');
+Route::get('home', [HomeController::class, 'index'])->name('home');
 
 Route::get('journals/edit/{id}', [JournalController::class, 'editjournals'])->name('editjournals');
 Route::post('journals/update', [JournalController::class, 'updatejournals'])->name('updatejournals');
 Route::get('journals/delete/{id}', [JournalController::class, 'deletejournals'])->name('deletejournals');
-
-
-Route::get('/login', function () {
-    return view('login');
 });
-Route::get('/login', [LoginController::class, 'login'])->name('login');
-Route::post('actionlogin', [LoginController::class, 'actionlogin'])->name('actionlogin');
 
-Route::get('home', [HomeController::class, 'index'])->name('home')->middleware('auth');
+
+
+
 Route::get('actionlogout', [LoginController::class, 'actionlogout'])->name('actionlogout')->middleware('auth');
